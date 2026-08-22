@@ -10,3 +10,37 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model User{
+  id String @id @default(uuid())
+  email String @unique
+  password String
+  createdAt DateTime  @default(now())
+
+  todos Todo[] //one to many relationship
+}
+
+model Todo{
+  id String @id @default(uuid())
+  title String
+  description String? @db.Text
+  isCompleted Boolean @default(false)
+  priority Priority @default(MEDIUM)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime @updatedAt
+
+  dueDate     DateTime?
+
+  userId String //foreign key
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isCompleted]) // We will almost never query WHERE isCompleted = true without also filtering by userId. So composite indexing is used here.
+}

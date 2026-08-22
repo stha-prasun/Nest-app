@@ -9,7 +9,7 @@ services:
     ports:
       - "5434:5432"
     volumes:
-      - prasun_postgres:/var/lib/postgresql/data
+      - prasun_postgres:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U prasun -d todo_db"]
       interval: 5s
