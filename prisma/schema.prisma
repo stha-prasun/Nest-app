@@ -24,6 +24,19 @@ model User{
   createdAt DateTime  @default(now())
 
   todos Todo[] //one to many relationship
+  refreshTokens RefreshToken[]
+}
+
+model RefreshToken{
+  id String @id @default(uuid())
+  token String @unique
+  userId String
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Todo{
