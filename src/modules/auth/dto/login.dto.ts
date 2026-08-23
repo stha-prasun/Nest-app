@@ -3,7 +3,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { NormalizeEmail } from '../../../common/normalizers/normalize-email.decorator.js';
 
 export class LoginDto {
-  @ApiProperty({ example: 'user@example.com', description: 'Registered email address' })
+  @ApiProperty({
+    example: 'user@example.com',
+    description: 'Registered email address',
+  })
   @IsEmail()
   @IsNotEmpty()
   @NormalizeEmail()
