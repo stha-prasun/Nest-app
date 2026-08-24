@@ -3,8 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import type { Request, Response, NextFunction } from 'express';
 import { AppModule } from './app.module';
-import { SwaggerService } from './common/swagger/swagger.service';
-import { LoggerMiddleware } from './common/logger/logger.middleware';
+import { SwaggerService } from '@common/swagger/swagger.service';
+import { LoggerMiddleware } from '@common/logger/logger.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

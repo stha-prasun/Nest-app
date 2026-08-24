@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { NormalizeEmail } from '../../../common/normalizers/normalize-email.decorator.js';
+import { NormalizeEmail } from '@common/normalizers/normalize-email.decorator';
 
 export class RegisterDto {
   @ApiProperty({

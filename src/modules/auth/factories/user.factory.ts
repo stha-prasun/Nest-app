@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import * as bcrypt from 'bcrypt';
 import { User } from '../entities/user.entity.js';
-import { CreateUserDto } from '../dto/create-user.dto.js';
+import { RegisterDto } from '../dto/register.dto.js';
 
 @Injectable()
 export class UserFactory {
-  async create(dto: CreateUserDto): Promise<User> {
+  async create(dto: RegisterDto): Promise<User> {
     const user = new User();
 
     user.id = randomUUID();
