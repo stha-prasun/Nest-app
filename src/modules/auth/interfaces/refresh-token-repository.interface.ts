@@ -1,4 +1,4 @@
-import type { RefreshToken } from '../entities/refresh-token.entity.js';
+import type { RefreshToken } from '../entities/refresh-token.entity';
 
 export interface IRefreshTokenRepository {
   create(data: {

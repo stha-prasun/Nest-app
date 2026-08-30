@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { AuthService } from './auth.service.js';
-import { AuthController } from './auth.controller.js';
+import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
 import { JwtStrategy } from '@common/strategies/jwt.strategy';
-import { PrismaUserRepository } from './repositories/prisma-user.repository.js';
-import { PrismaRefreshTokenRepository } from './repositories/prisma-refresh-token.repository.js';
-import { UserFactory } from './factories/user.factory.js';
+import { PrismaUserRepository } from './repositories/prisma-user.repository';
+import { PrismaRefreshTokenRepository } from './repositories/prisma-refresh-token.repository';
+import { UserFactory } from './factories/user.factory';
 import {
   USER_REPOSITORY,
   REFRESH_TOKEN_REPOSITORY,
-} from './constants/auth.constants.js';
+} from './constants/auth.constants';
 
 @Module({
   imports: [

@@ -1,5 +1,5 @@
-import type { User } from '../entities/user.entity.js';
-import type { UserResponseDto } from '../dto/user-response.dto.js';
+import type { User } from '../entities/user.entity';
+import type { UserResponseDto } from '../dto/user-response.dto';
 
 export interface IUserRepository {
   findByEmail(email: string): Promise<User | null>;

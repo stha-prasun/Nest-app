@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import * as bcrypt from 'bcrypt';
-import { User } from '../entities/user.entity.js';
-import { RegisterDto } from '../dto/register.dto.js';
+import { User } from '../entities/user.entity';
+import { RegisterDto } from '../dto/register.dto';
 
 @Injectable()
 export class UserFactory {

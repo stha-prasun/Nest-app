@@ -5,8 +5,9 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { ABAC_ACTION_KEY, ABAC_RESOURCE_KEY } from './abac.decorator.js';
-import type { AbacContext, AbacPolicy } from './abac.interface.js';
+import { ABAC_ACTION_KEY, ABAC_RESOURCE_KEY } from './abac.decorator';
+import type { AbacContext, AbacPolicy } from './abac.interface';
+import { PrismaService } from '../../modules/prisma/prisma.service';
 
 interface RequestUser {
   userId: string;
@@ -15,13 +16,17 @@ interface RequestUser {
 
 interface AuthenticatedRequest {
   user?: RequestUser;
+  params?: Record<string, string>;
 }
 
 @Injectable()
 export class AbacGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
+  constructor(
+    private readonly reflector: Reflector,
+    private readonly prisma: PrismaService,
+  ) {}
 
-  canActivate(context: ExecutionContext): boolean {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const resource = this.reflector.getAllAndOverride<string>(
       ABAC_RESOURCE_KEY,
       [context.getHandler(), context.getClass()],
@@ -49,7 +54,7 @@ export class AbacGuard implements CanActivate {
       action,
     };
 
-    const policy = this.resolvePolicy(resource);
+    const policy = await this.resolvePolicy(resource, request.params?.id);
     if (!policy.evaluate(abacContext)) {
       throw new ForbiddenException(`Access denied: ${action} on ${resource}`);
     }
@@ -57,8 +62,23 @@ export class AbacGuard implements CanActivate {
     return true;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private resolvePolicy(resource: string): AbacPolicy {
+  private async resolvePolicy(
+    resource: string,
+    resourceId?: string,
+  ): Promise<AbacPolicy> {
+    if (resource === 'todo' && resourceId) {
+      const todo = await this.prisma.todo.findUnique({
+        where: { id: resourceId },
+        select: { userId: true },
+      });
+
+      return {
+        evaluate: (ctx: AbacContext) => {
+          return todo?.userId === ctx.subject.userId;
+        },
+      };
+    }
+
     return {
       evaluate: () => true,
     };

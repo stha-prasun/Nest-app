@@ -10,12 +10,12 @@ import { randomBytes } from 'crypto';
 import {
   USER_REPOSITORY,
   REFRESH_TOKEN_REPOSITORY,
-} from './constants/auth.constants.js';
-import type { IUserRepository } from './interfaces/user-repository.interface.js';
-import type { IRefreshTokenRepository } from './interfaces/refresh-token-repository.interface.js';
-import { UserFactory } from './factories/user.factory.js';
-import { RegisterDto } from './dto/register.dto.js';
-import { LoginDto } from './dto/login.dto.js';
+} from './constants/auth.constants';
+import type { IUserRepository } from './interfaces/user-repository.interface';
+import type { IRefreshTokenRepository } from './interfaces/refresh-token-repository.interface';
+import { UserFactory } from './factories/user.factory';
+import { RegisterDto } from './dto/register.dto';
+import { LoginDto } from './dto/login.dto';
 
 const REFRESH_TOKEN_EXPIRY_DAYS = 7;
 
