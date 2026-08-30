@@ -13,7 +13,7 @@ export class PrismaTodoRepository implements ITodoRepository {
       data: {
         title: data.title,
         description: data.description ?? null,
-        priority: (data.priority as Priority) ?? Priority.MEDIUM,
+        priority: data.priority ?? Priority.MEDIUM,
         dueDate: data.dueDate ?? null,
         userId: data.userId,
       },
